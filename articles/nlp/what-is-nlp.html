@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is NLP? - Understanding Natural Language Processing</title>
+    <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .article-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-primary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .article-content h2 {
+            color: var(--accent-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .article-content p, 
+        .article-content ul, 
+        .article-content ol {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content code {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            display: block;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            background-color: var(--accent-color);
+            color: var(--text-primary);
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+
+        .back-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            border-color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="moon"></div>
+    <div class="stars-container">
+        <div class="stars-layer stars-1"></div>
+        <div class="stars-layer stars-2"></div>
+        <div class="stars-layer stars-3"></div>
+    </div>
+
+    <main class="container">
+        <!-- Back Navigation -->
+        <a href="../../content/nlp.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to NLP Articles
+        </a>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchBox" class="search-box" placeholder="Search in article...">
+        </div>
+
+        <article class="article-container">
+            <header class="article-header">
+                <h1 class="article-title">What is Natural Language Processing?</h1>
+                <div class="card-tags">
+                    <span class="tag">NLP</span>
+                    <span class="tag">Basics</span>
+                </div>
+            </header>
+
+            <div class="article-content" id="articleContent">
+                <!-- Previous article content remains the same -->
+                <h2>Introduction to NLP</h2>
+                <p>Natural Language Processing (NLP) is a branch of artificial intelligence that focuses on enabling computers to understand, interpret, and generate human language. It bridges the gap between human communication and computer understanding.</p>
+
+                <h2>Key Components of NLP</h2>
+                <p>NLP consists of several core components that work together to process and understand human language:</p>
+                <ul>
+                    <li><strong>Tokenization:</strong> Breaking down text into individual words or tokens</li>
+                    <li><strong>Part-of-speech Tagging:</strong> Identifying the grammatical parts of speech</li>
+                    <li><strong>Named Entity Recognition:</strong> Identifying and classifying named entities</li>
+                    <li><strong>Sentiment Analysis:</strong> Understanding the emotional tone of text</li>
+                </ul>
+
+                <h2>Applications of NLP</h2>
+                <p>NLP has numerous real-world applications across various industries:</p>
+                <ul>
+                    <li>Machine Translation</li>
+                    <li>Chatbots and Virtual Assistants</li>
+                    <li>Text Summarization</li>
+                    <li>Speech Recognition</li>
+                    <li>Sentiment Analysis</li>
+                </ul>
+
+                <h2>Code Example</h2>
+                <code>
+import nltk
+from nltk.tokenize import word_tokenize
+
+# Example text
+text = "Natural Language Processing is fascinating!"
+
+# Tokenize the text
+tokens = word_tokenize(text)
+print(tokens)
+
+# Output: ['Natural', 'Language', 'Processing', 'is', 'fascinating', '!']</code>
+
+                <h2>Future of NLP</h2>
+                <p>The field of NLP continues to evolve rapidly with advancements in:</p>
+                <ul>
+                    <li>Transformer models like BERT and GPT</li>
+                    <li>Zero-shot and few-shot learning</li>
+                    <li>Multilingual language models</li>
+                    <li>More efficient training methods</li>
+                </ul>
+            </div>
+        </article>
+    </main>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const articleContent = document.getElementById('articleContent');
+        let originalContent = articleContent.innerHTML;
+
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.trim();
+            if (searchTerm === '') {
+                articleContent.innerHTML = originalContent;
+                return;
+            }
+
+            let content = originalContent;
+            const regex = new RegExp(searchTerm, 'gi');
+            content = content.replace(regex, match => `<span class="highlight">${match}</span>`);
+            articleContent.innerHTML = content;
+
+            // Scroll to first highlight if exists
+            const firstHighlight = articleContent.querySelector('.highlight');
+            if (firstHighlight) {
+                firstHighlight.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>What is Machine Learning? - Core Concepts Explained</title>
+    <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .article-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-primary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .article-content h2 {
+            color: var(--accent-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .article-content p, 
+        .article-content ul, 
+        .article-content ol {
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content code {
+            background: var(--bg-secondary);
+            padding: 1rem;
+            border-radius: 8px;
+            display: block;
+            margin: 1rem 0;
+            white-space: pre-wrap;
+        }
+
+        .highlight {
+            background-color: var(--accent-color);
+            color: var(--text-primary);
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+
+        .back-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            border-color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="moon"></div>
+    <div class="stars-container">
+        <div class="stars-layer stars-1"></div>
+        <div class="stars-layer stars-2"></div>
+        <div class="stars-layer stars-3"></div>
+    </div>
+
+    <main class="container">
+        <!-- Back Navigation -->
+        <a href="../../content/ml.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to ML Articles
+        </a>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchBox" class="search-box" placeholder="Search in article...">
+        </div>
+
+        <article class="article-container">
+            <header class="article-header">
+                <h1 class="article-title">Comming Soon</h1>
+                <div class="card-tags">
+                </div>
+            </header>
+        </article>
+    </main>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const articleContent = document.getElementById('articleContent');
+        let originalContent = articleContent.innerHTML;
+
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.trim();
+            if (searchTerm === '') {
+                articleContent.innerHTML = originalContent;
+                return;
+            }
+
+            let content = originalContent;
+            const regex = new RegExp(searchTerm, 'gi');
+            content = content.replace(regex, match => `<span class="highlight">${match}</span>`);
+            articleContent.innerHTML = content;
+
+            // Scroll to first highlight if exists
+            const firstHighlight = articleContent.querySelector('.highlight');
+            if (firstHighlight) {
+                firstHighlight.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            }
+        });
+    </script>
+</body>
+</html>

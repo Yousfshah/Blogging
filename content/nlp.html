@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NLP Articles - Yousuf Shah</title>
+    <link rel="icon" type="image/svg+xml" href="../images/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .back-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            border-color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="moon"></div>
+    <div class="stars-container">
+        <div class="stars-layer stars-1"></div>
+        <div class="stars-layer stars-2"></div>
+        <div class="stars-layer stars-3"></div>
+    </div>
+
+    <main class="container">
+        <!-- Header -->
+        <header class="header">
+            <a href="../index.html" class="back-link">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <h1>Natural Language Processing</h1>
+        
+            <!-- Search Bar -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchBox" class="search-box" placeholder="Search articles...">
+            </div>
+        </header>
+
+        <!-- Blog Grid -->
+        <section class="categories" id="articlesGrid">
+            <!-- What is NLP Card -->
+            <a href="../articles/nlp/what-is-nlp.html" class="category-card">
+                <div class="card-content">
+                    <i class="fas fa-language" style="font-size: 3rem; color: var(--accent-color); margin-bottom: 1rem;"></i>
+                    <h2>What is NLP?</h2>
+                    <div class="card-tags">
+                        <span class="tag">NLP</span>
+                        <span class="tag">Basics</span>
+                    </div>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const articleCards = document.querySelectorAll('.category-card');
+
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            articleCards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const tags = Array.from(card.querySelectorAll('.tag'))
+                    .map(tag => tag.textContent.toLowerCase());
+                
+                const matches = title.includes(searchTerm) || 
+                              tags.some(tag => tag.includes(searchTerm));
+                
+                card.style.display = matches ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>

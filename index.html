@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yousuf Shah</title>
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .lightning-text {
+            position: relative;
+            font-size: 3.5rem;
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--accent-color),
+                         0 0 20px var(--accent-color),
+                         0 0 40px var(--accent-color);
+            animation: lightning 5s infinite;
+        }
+
+        .lightning-text::before {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            filter: blur(8px);
+            opacity: 0;
+            color: var(--accent-color);
+            animation: lightningFlash 5s infinite;
+        }
+
+        .social-links {
+            margin: 3rem 0;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+
+        .social-links a {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 15px;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border-color);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 5px 20px rgba(66, 153, 225, 0.4);
+        }
+
+        .title-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 2rem;
+            color: var(--accent-color);
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="moon"></div>
+    <div class="stars-container">
+        <div class="stars-layer stars-1"></div>
+        <div class="stars-layer stars-2"></div>
+        <div class="stars-layer stars-3"></div>
+    </div>
+
+    <main class="container">
+        <!-- Header Section -->
+        <header class="header fade-in">
+            
+            <h1 class="lightning-text" data-text="Yousuf Shah">Yousuf Shah</h1>
+
+            <!-- Social Links -->
+            <div class="social-links">
+                <a href="https://x.com/YousufAnalyst" target="_blank" rel="noopener" aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
+                </a>
+                <a href="https://github.com/Yousfshah" target="_blank" rel="noopener" aria-label="GitHub">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.kaggle.com/yousufshah" target="_blank" rel="noopener" aria-label="Kaggle">
+                    <i class="fab fa-kaggle"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/yousuf-shah-7ba9492b4/" target="_blank" rel="noopener" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://yousfshah.github.io/Portfolio_Website/" target="_blank" rel="noopener" aria-label="Portfolio">
+                    <i class="fas fa-globe"></i>
+                </a>
+            </div>
+            
+            <!-- Search Bar -->
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchBox" class="search-box" placeholder="Search articles...">
+            </div>
+        </header>
+
+        <!-- Category Cards -->
+        <section class="categories fade-in" id="categoryCards">
+            <!-- NLP Category -->
+            <a href="content/nlp.html" class="category-card">
+                <img src="images/NLP.jpg" alt="Natural Language Processing" class="card-image">
+                <div class="card-content">
+                    <h2>Natural Language Processing</h2>
+                </div>
+            </a>
+
+            <!-- ML Category -->
+            <a href="content/ml.html" class="category-card">
+                <img src="images/ML.jpg" alt="Machine Learning" class="card-image">
+                <div class="card-content">
+                    <h2>Machine Learning</h2>
+                </div>
+            </a>
+        </section>
+    </main>
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const categoryCards = document.querySelectorAll('.category-card');
+
+        searchBox.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            categoryCards.forEach(card => {
+                const title = card.querySelector('h2').textContent.toLowerCase();
+                const matches = title.includes(searchTerm);
+                card.style.display = matches ? 'block' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
