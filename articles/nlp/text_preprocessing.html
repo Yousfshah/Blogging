@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mastering Text Preprocessing in NLP: A Practical Guide</title>
+    <link rel="icon" type="image/svg+xml" href="../../images/favicon.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/style.css">
+    <style>
+        .article-container {
+            background: var(--card-bg);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            border: 1px solid var(--border-color);
+            backdrop-filter: blur(10px);
+            position: relative;
+            z-index: 1;
+        }
+
+        .article-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .article-title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--text-primary), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .article-content h2,
+        .article-content h3 {
+            color: var(--accent-color);
+            margin: 2rem 0 1rem;
+        }
+
+        .article-content p,
+        .article-content ul,
+        .article-content ol {
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+        }
+
+        .article-content ul,
+        .article-content ol {
+            padding-left: 1.5rem;
+        }
+
+        .article-content li {
+            margin-bottom: 0.8rem;
+        }
+
+        .highlight {
+            background-color: var(--accent-color);
+            color: var(--text-primary);
+            padding: 0 2px;
+            border-radius: 3px;
+        }
+
+        .back-link {
+            color: var(--text-primary);
+            text-decoration: none;
+            display: inline-block;
+            margin-bottom: 1rem;
+            padding: 0.5rem 1rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            border-color: var(--accent-color);
+            transform: translateX(-5px);
+        }
+
+        .article-content pre {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1rem;
+            overflow-x: auto;
+            margin-bottom: 1.5rem;
+        }
+
+        .article-content code {
+            font-family: 'Courier New', Courier, monospace;
+            color: var(--text-primary);
+        }
+    </style>
+    <style>
+    .code-container {
+        position: relative;
+        margin-bottom: 2rem;
+    }
+
+    .copy-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: linear-gradient(45deg, #000000, #a5a5a5);
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 5px;
+        font-size: 0.8rem;
+        cursor: pointer;
+        z-index: 10;
+        transition: transform 0.2s ease;
+    }
+
+    .copy-btn:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    }
+    </style>
+    <style>
+    pre {
+        background-color: #1e1e1e;
+        color: #f8f8f2;
+        padding: 1rem;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        line-height: 1.6;
+        overflow-x: auto;
+        border: 1px solid #444;
+        margin-bottom: 1.5rem;
+        white-space: pre-wrap;
+        word-break: break-word;
+    }
+
+    code {
+        font-family: 'Fira Code', 'Courier New', Courier, monospace;
+        font-size: 0.95rem;
+        color: #f8f8f2;
+    }
+
+    /* Optional: highlight keywords like a code editor */
+    .token.comment { color: #6a9955; }
+    .token.string { color: #ce9178; }
+    .token.keyword { color: #569cd6; }
+    .token.function { color: #dcdcaa; }
+    .token.number { color: #b5cea8; }
+    </style>
+
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="moon"></div>
+    <div class="stars-container">
+        <div class="stars-layer stars-1"></div>
+        <div class="stars-layer stars-2"></div>
+        <div class="stars-layer stars-3"></div>
+    </div>
+
+    <main class="container">
+        <!-- Back Navigation -->
+        <a href="../../content/nlp.html" class="back-link">
+            <i class="fas fa-arrow-left"></i> Back to NLP Articles
+        </a>
+
+        <!-- Search Bar -->
+        <div class="search-container">
+            <i class="fas fa-search search-icon"></i>
+            <input type="text" id="searchBox" class="search-box" placeholder="Search in article...">
+        </div>
+
+        <!-- Article Content -->
+        <article class="article-container article-content" id="articleContent">
+            <h1 class="article-title">Mastering Text Preprocessing in NLP: A Practical Guide with Code & Real-World Use Cases</h1>
+
+            <p>💡 <strong>Highly recommended:</strong> For a hands-on learning experience, explore the companion <a href="https://github.com/Yousfshah/Natural_Language_Processing" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;" onmouseover="this.style.color='#ff4081'; this.style.transform='scale(1.05)'" onmouseout="this.style.color='#007bff'; this.style.transform='scale(1)'"> Jupyter Notebook on GitHub </a> & <a href="https://www.kaggle.com/code/yousufshah/mastering-text-preprocessing-for-nlp" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;" onmouseover="this.style.color='#ff4081'; this.style.transform='scale(1.05)'" onmouseout="this.style.color='#007bff'; this.style.transform='scale(1)'"> Jupyter Notebook on Kaggle </a> — it includes modular code, visual outputs, and reusable functions. It took 10 days of focused effort to create — packed with simple, beginner-friendly code and helpful visuals. Just plug in your text and watch the magic happen!</p>
+
+            <p>Natural Language Processing (NLP) is one of the most transformative fields in AI today. From chatbots to search engines and sentiment analysis tools, NLP allows machines to understand and generate human language. But before we dive into fancy models like BERT or GPT, there's one essential foundation we can't ignore: <strong>text preprocessing</strong>.</p>
+
+            <p>Preprocessing transforms raw, noisy text into a clean and normalized form that machines can work with. Think of it as preparing ingredients before cooking — the better the prep, the better the outcome.</p>
+
+            <p>In this blog, I’ll walk you through <strong>every important text preprocessing step</strong>, explain why each one matters, show you real-world examples, and provide Python code (using NLTK & spaCy) for each.</p>
+
+            <h2>👁️ Why Is Text Preprocessing Important?</h2>
+            <p>Raw text from sources like web pages, tweets, reviews, or chat logs is full of noise: inconsistent casing, typos, emojis, HTML tags, URLs, slang, and more. If you feed this directly into an NLP model, it might learn meaningless patterns or perform poorly.</p>
+
+            <h3>Preprocessing helps with:</h3>
+            <ul>
+                <li>Improving model accuracy</li>
+                <li>Reducing vocabulary size</li>
+                <li>Increasing training speed</li>
+                <li>Enhancing generalization</li>
+                <li>Making features meaningful</li>
+            </ul>
+
+            <h2>🔢 The Complete Text Preprocessing Pipeline</h2>
+            <p>Below are the steps I followed, each explained with <strong>code, rationale, and real-world examples</strong>.</p>
+
+            <h3>1. Lowercasing</h3>
+            <p><strong>Why?</strong> To treat "Apple" and "apple" as the same word. It reduces vocabulary size and inconsistencies.</p>
+            <pre><code class="language-python">text = "Apple is looking at buying a startup."
+text.lower()  # 'apple is looking at buying a startup.'
+</code></pre>
+            <p><strong>Use case:</strong> Email classification, sentiment analysis</p>
+
+            <h3>2. Removing HTML Tags</h3>
+            <p><strong>Why?</strong> Scraped data often contains HTML (`&lt;div&gt;`, `&lt;br&gt;`). These are useless for language understanding.</p>
+            <pre><code class="language-python">import re
+text = "&lt;div&gt;Welcome to NLP!&lt;/div&gt;"
+cleaned = re.sub(r'&lt;.*?&gt;', '', text)  # 'Welcome to NLP!'
+</code></pre>
+            <p><strong>Use case:</strong> Web scraping, product reviews</p>
+
+            <h3>3. Removing URLs</h3>
+            <p><strong>Why?</strong> Links rarely add semantic meaning and can distract models.</p>
+            <pre><code class="language-python">text = "Check out https://example.com for more info."
+re.sub(r'http\S+|www\.\S+', '', text)  # 'Check out  for more info.'
+</code></pre>
+            <p><strong>Use case:</strong> Twitter sentiment analysis, customer feedback</p>
+
+            <h3>4. Removing Punctuation</h3>
+            <p><strong>Why?</strong> Punctuation may not be useful in some NLP tasks like classification.</p>
+            <pre><code class="language-python">import string
+text = "Hello!!! How are you???"
+text.translate(str.maketrans('', '', string.punctuation))  # 'Hello How are you'
+</code></pre>
+            <p><strong>Use case:</strong> Spam detection, topic classification</p>
+
+            <h3>5. Removing Numbers</h3>
+            <p><strong>Why?</strong> Numbers may add noise unless they're meaningful (e.g., prices).</p>
+            <pre><code class="language-python">text = "There are 300 apples."
+re.sub(r'\d+', '', text)  # 'There are  apples.'
+</code></pre>
+            <p><strong>Use case:</strong> News classification, chatbot training</p>
+
+            <h3>6. Removing Emojis</h3>
+            <p><strong>Why?</strong> Emojis are not always tokenizable and can confuse models unless explicitly needed.</p>
+            <pre><code class="language-python">text = "I love NLP! 😍"
+re.sub(r'[^\x00-\x7F]+', '', text)  # 'I love NLP! '
+</code></pre>
+            <p><strong>Use case:</strong> Product reviews, social media mining</p>
+
+            <h3>7. Expanding Contractions</h3>
+            <p><strong>Why?</strong> "can't" becomes "cannot". Improves standardization.</p>
+            <pre><code class="language-python">contractions = {"can't": "cannot", "i'm": "i am"}
+text = "I'm happy because I can't wait."
+for c, e in contractions.items():
+    text = text.replace(c, e)  # 'I am happy because I cannot wait.'
+</code></pre>
+            <p><strong>Use case:</strong> Chatbot input normalization</p>
+
+            <h3>8. Slang & Chat Abbreviations Handling</h3>
+            <p><strong>Why?</strong> "LOL" -&gt; "laughing out loud". Improves understanding.</p>
+            <pre><code class="language-python">slangs = {"brb": "be right back", "ttyl": "talk to you later"}
+text = "brb, ttyl!"
+text = ' '.join([slangs.get(word.lower(), word) for word in text.split()])
+# 'be right back talk to you later'
+</code></pre>
+            <p><strong>Use case:</strong> Social media or chatbot training data</p>
+
+            <h3>9. Spelling Correction</h3>
+            <p><strong>Why?</strong> Corrects typos that models might otherwise treat as unique tokens.</p>
+            <pre><code class="language-python">from textblob import TextBlob
+TextBlob("I havv good speling").correct()  # 'I have good spelling'
+</code></pre>
+            <p><strong>Use case:</strong> Email parsing, resume screening</p>
+
+            <h3>10. Stopword Removal</h3>
+            <p><strong>Why?</strong> Removes words like "is", "the", "a" that may not help classification tasks.</p>
+            <pre><code class="language-python">from nltk.corpus import stopwords
+from nltk.tokenize import word_tokenize
+text = "This is an example."
+tokens = word_tokenize(text)
+filtered = [w for w in tokens if w.lower() not in stopwords.words('english')]
+# ['example']
+</code></pre>
+            <p><strong>Use case:</strong> Text classification, topic modeling</p>
+
+            <h3>11. Tokenization</h3>
+            <p><strong>Why?</strong> Converts text into individual tokens (words or subwords).</p>
+            <pre><code class="language-python">from nltk.tokenize import word_tokenize
+word_tokenize("NLP is awesome!")  # ['NLP', 'is', 'awesome', '!']
+</code></pre>
+            <p><strong>Use case:</strong> All NLP pipelines, embedding generation</p>
+
+            <h3>12. Stemming</h3>
+            <p><strong>Why?</strong> Reduces words to their root forms (may not be real words).</p>
+            <pre><code class="language-python">from nltk.stem import PorterStemmer
+stemmer = PorterStemmer()
+stemmer.stem("running")  # 'run'
+</code></pre>
+            <p><strong>Use case:</strong> Search engines, indexing</p>
+
+            <h3>13. Lemmatization</h3>
+            <p><strong>Why?</strong> Like stemming, but returns real dictionary words using grammar.</p>
+            <pre><code class="language-python">import spacy
+nlp = spacy.load("en_core_web_sm")
+doc = nlp("The children were running.")
+[token.lemma_ for token in doc]  # ['the', 'child', 'be', 'run', '.']
+</code></pre>
+            <p><strong>Use case:</strong> Text classification, translation, QA systems</p>
+
+            <h2>📚 Final Thoughts</h2>
+            <p>Preprocessing isn't just "cleaning" — it's an essential <strong>NLP engineering skill</strong> that can determine the success or failure of your models. A well-preprocessed dataset helps extract meaningful patterns, reduces errors, and speeds up your workflow.</p>
+
+            <p>This guide gives you everything you need to build your own preprocessing pipeline — and <strong>think critically about what steps are necessary for your specific NLP problem</strong>.</p>
+
+            <p>Stay tuned as I continue this journey — up next: Named Entity Recognition (NER), Vectorization, and Transformers!</p>
+
+            <p><strong>✨ "Good models start with great preprocessing."</strong></p>
+        </article>
+    </main>
+        <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const codeBlocks = document.querySelectorAll("pre > code");
+
+            codeBlocks.forEach((codeBlock) => {
+                const wrapper = document.createElement("div");
+                wrapper.className = "code-container";
+
+                const pre = codeBlock.parentElement;
+                pre.parentNode.insertBefore(wrapper, pre);
+                wrapper.appendChild(pre);
+
+                const button = document.createElement("button");
+                button.innerText = "Copy";
+                button.className = "copy-btn";
+
+                button.addEventListener("click", () => {
+                    navigator.clipboard.writeText(codeBlock.innerText).then(() => {
+                        button.innerText = "Copied!";
+                        setTimeout(() => (button.innerText = "Copy"), 2000);
+                    });
+                });
+
+                wrapper.appendChild(button);
+            });
+        });
+    </script>
+<!-- Prism.js JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+
+    <script>
+        // Search functionality
+        const searchBox = document.getElementById('searchBox');
+        const articleContent = document.getElementById('articleContent');
+        let originalContent = articleContent.innerHTML;
+
+        searchBox.addEventListener('input', function () {
+            const searchTerm = this.value.trim();
+            if (searchTerm === '') {
+                articleContent.innerHTML = originalContent;
+                return;
+            }
+
+            let content = originalContent;
+            const regex = new RegExp(searchTerm, 'gi');
+            content = content.replace(regex, match => `<span class="highlight">${match}</span>`);
+            articleContent.innerHTML = content;
+
+            const firstHighlight = articleContent.querySelector('.highlight');
+            if (firstHighlight) {
+                firstHighlight.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        });
+    </script>
+</body>
+
+</html>
