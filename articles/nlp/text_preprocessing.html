@@ -94,35 +94,7 @@
             font-family: 'Courier New', Courier, monospace;
             color: var(--text-primary);
         }
-    </style>
-    <style>
-    .code-container {
-        position: relative;
-        margin-bottom: 2rem;
-    }
-
-    .copy-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: linear-gradient(45deg, #000000, #a5a5a5);
-        color: white;
-        border: none;
-        padding: 6px 12px;
-        border-radius: 5px;
-        font-size: 0.8rem;
-        cursor: pointer;
-        z-index: 10;
-        transition: transform 0.2s ease;
-    }
-
-    .copy-btn:hover {
-        transform: scale(1.05);
-        box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-    }
-    </style>
-    <style>
-    pre {
+            pre {
         background-color: #1e1e1e;
         color: #f8f8f2;
         padding: 1rem;
@@ -135,20 +107,45 @@
         margin-bottom: 1.5rem;
         white-space: pre-wrap;
         word-break: break-word;
-    }
+        }
 
-    code {
-        font-family: 'Fira Code', 'Courier New', Courier, monospace;
-        font-size: 0.95rem;
-        color: #f8f8f2;
-    }
+        code {
+            font-family: 'Fira Code', 'Courier New', Courier, monospace;
+            font-size: 0.95rem;
+            color: #f8f8f2;
+        }
 
-    /* Optional: highlight keywords like a code editor */
-    .token.comment { color: #6a9955; }
-    .token.string { color: #ce9178; }
-    .token.keyword { color: #569cd6; }
-    .token.function { color: #dcdcaa; }
-    .token.number { color: #b5cea8; }
+        /* Optional: highlight keywords like a code editor */
+        .token.comment { color: #6a9955; }
+        .token.string { color: #ce9178; }
+        .token.keyword { color: #569cd6; }
+        .token.function { color: #dcdcaa; }
+        .token.number { color: #b5cea8; }
+
+        .code-container {
+        position: relative;
+        margin-bottom: 2rem;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: linear-gradient(45deg, #000000, #000000);
+            color: white;
+            border: none;
+            padding: 6px 12px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+            cursor: pointer;
+            z-index: 10;
+            transition: transform 0.2s ease;
+        }
+
+        .copy-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
     </style>
 
 </head>
@@ -178,7 +175,7 @@
         <article class="article-container article-content" id="articleContent">
             <h1 class="article-title">Mastering Text Preprocessing in NLP: A Practical Guide with Code & Real-World Use Cases</h1>
 
-            <p>💡 <strong>Highly recommended:</strong> For a hands-on learning experience, explore the companion <a href="https://github.com/Yousfshah/Natural_Language_Processing" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;" onmouseover="this.style.color='#ff4081'; this.style.transform='scale(1.05)'" onmouseout="this.style.color='#007bff'; this.style.transform='scale(1)'"> Jupyter Notebook on GitHub </a> & <a href="https://www.kaggle.com/code/yousufshah/mastering-text-preprocessing-for-nlp" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;" onmouseover="this.style.color='#ff4081'; this.style.transform='scale(1.05)'" onmouseout="this.style.color='#007bff'; this.style.transform='scale(1)'"> Jupyter Notebook on Kaggle </a> — it includes modular code, visual outputs, and reusable functions. It took 10 days of focused effort to create — packed with simple, beginner-friendly code and helpful visuals. Just plug in your text and watch the magic happen!</p>
+            <p>💡 <strong>Highly recommended:</strong> For a hands-on learning experience, explore the companion <a href="https://github.com/Yousfshah/Natural_Language_Processing" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;" onmouseover="this.style.color='#ff4081'; this.style.transform='scale(1.05)'" onmouseout="this.style.color='#007bff'; this.style.transform='scale(1)'"> Jupyter Notebook on GitHub </a> or <a href="https://www.kaggle.com/code/yousufshah/mastering-text-preprocessing-for-nlp" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;" onmouseover="this.style.color='#ff4081'; this.style.transform='scale(1.05)'" onmouseout="this.style.color='#007bff'; this.style.transform='scale(1)'"> Jupyter Notebook on Kaggle </a> — it includes modular code, visual outputs, and reusable functions. It took 10 days of focused effort to create — packed with simple, beginner-friendly code and helpful visuals. Just plug in your text and watch the magic happen!</p>
 
             <p>Natural Language Processing (NLP) is one of the most transformative fields in AI today. From chatbots to search engines and sentiment analysis tools, NLP allows machines to understand and generate human language. But before we dive into fancy models like BERT or GPT, there's one essential foundation we can't ignore: <strong>text preprocessing</strong>.</p>
 
@@ -315,8 +312,14 @@ doc = nlp("The children were running.")
             <p><strong>✨ "Good models start with great preprocessing."</strong></p>
         </article>
     </main>
-        <script>
-        document.addEventListener("DOMContentLoaded", () => {
+<!-- Prism.js JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+
+
+    <script>
+        // Copy code button functionality
+         document.addEventListener("DOMContentLoaded", () => {
             const codeBlocks = document.querySelectorAll("pre > code");
 
             codeBlocks.forEach((codeBlock) => {
@@ -341,13 +344,6 @@ doc = nlp("The children were running.")
                 wrapper.appendChild(button);
             });
         });
-    </script>
-<!-- Prism.js JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-
-
-    <script>
         // Search functionality
         const searchBox = document.getElementById('searchBox');
         const articleContent = document.getElementById('articleContent');
@@ -372,5 +368,4 @@ doc = nlp("The children were running.")
         });
     </script>
 </body>
-
 </html>
