@@ -124,9 +124,10 @@
             padding: 6px 12px;
             border-radius: 5px;
             font-size: 0.8rem;
+            font-family: 'Inter', sans-serif;
             cursor: pointer;
             z-index: 10;
-            transition: transform 0.2s ease, background 0.3s ease;
+            transition: transform 0.2s ease, background 0.3s ease, opacity 0.3s ease;
         }
 
         .copy-btn:hover {
@@ -136,6 +137,17 @@
 
         .copy-btn.copied {
             background: #28a745;
+            opacity: 0.9;
+        }
+
+        .copy-btn.copied::after {
+            content: 'Copied!';
+            opacity: 1;
+        }
+
+        .copy-btn::after {
+            content: 'Copy';
+            transition: opacity 0.3s ease;
         }
 
         .spacy-note {
@@ -209,7 +221,7 @@ print("\nProcessed:", processed_text)
 # Original: Apple is looking at buying a startup.
 # Processed: apple is looking at buying a startup.
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Email classification, sentiment analysis</p>
 
@@ -224,7 +236,7 @@ print("\nProcessed:", processed_text)
 # Original: <div>Welcome to NLP!</div>
 # Processed: Welcome to NLP!
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Web scraping, product reviews</p>
 
@@ -239,7 +251,7 @@ print("\nProcessed:", processed_text)
 # Original: Check out https://example.com for more info.
 # Processed: Check out  for more info.
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Twitter sentiment analysis, customer feedback</p>
 
@@ -254,7 +266,7 @@ print("\nProcessed:", processed_text)
 # Original: Hello!!! How are you???
 # Processed: Hello How are you
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Spam detection, topic classification</p>
 
@@ -269,7 +281,7 @@ print("\nProcessed:", processed_text)
 # Original: I love NLP! 😍
 # Processed: I love NLP! :heart_eyes:
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Product reviews, social media mining</p>
 
@@ -287,7 +299,7 @@ print("\nProcessed:", processed_text)
 # Original: brb, ttyl!
 # Processed: be right back , talk to you later !
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Social media or chatbot training data</p>
 
@@ -302,7 +314,7 @@ print("\nProcessed:", processed_text)
 # Original: I havv good speling
 # Processed: I have good spelling
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Email parsing, resume screening</p>
 
@@ -319,7 +331,7 @@ print("\nProcessed:", processed_text)
 # Original: This is an example.
 # Processed: example
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Text classification, topic modeling</p>
 
@@ -336,7 +348,7 @@ print("\nProcessed:", processed_text)
 # Original: NLP is awesome!
 # Processed: ['NLP', 'is', 'awesome', '!']
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> All NLP pipelines, embedding generation</p>
 
@@ -352,7 +364,7 @@ print("\nProcessed:", processed_text)
 # Original: running
 # Processed: run
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Search engines, indexing</p>
 
@@ -369,14 +381,14 @@ print("\nProcessed:", processed_text)
 # Original: The children were running.
 # Processed: ['the', 'child', 'be', 'run', '.']
 </code></pre>
-                <button class="copy-btn">Copy</button>
+                <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
             <p><strong>Use case:</strong> Text classification, translation, QA systems</p>
 
             <h2>📚 Final Thoughts</h2>
             <p>Preprocessing isn't just "cleaning" — it's an essential <strong>NLP engineering skill</strong> that can determine the success or failure of your models. A well-preprocessed dataset helps extract meaningful patterns, reduces errors, and speeds up your workflow.</p>
 
-            <p>This guide gives you everything you need to build your own preprocessing pipeline — and <strong>think critically about what steps are necessary for your specific NLP problem</strong>.</p>
+            <p>This guide gives you everything you need to build your own basic preprocessing pipeline — and <strong>think critically about what steps are necessary for your specific NLP problem</strong>.</p>
 
             <p>Stay tuned as I continue this journey — up next: Named Entity Recognition (NER), Vectorization, and Transformers!</p>
 
@@ -387,36 +399,29 @@ print("\nProcessed:", processed_text)
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
     <script>
-        // Copy code button functionality
-        document.addEventListener("DOMContentLoaded", () => {
-            const codeBlocks = document.querySelectorAll("pre > code");
-
-            codeBlocks.forEach((codeBlock) => {
-                const wrapper = document.createElement("div");
-                wrapper.className = "code-container";
-
-                const pre = codeBlock.parentElement;
-                pre.parentNode.insertBefore(wrapper, pre);
-                wrapper.appendChild(pre);
-
-                const button = document.createElement("button");
-                button.innerText = "Copy";
-                button.className = "copy-btn";
-
-                button.addEventListener("click", () => {
-                    navigator.clipboard.writeText(codeBlock.innerText).then(() => {
-                        button.innerText = "Copied!";
-                        button.classList.add("copied");
-                        setTimeout(() => {
-                            button.innerText = "Copy";
-                            button.classList.remove("copied");
-                        }, 2000);
-                    });
-                });
-
-                wrapper.appendChild(button);
-            });
-        });
+        function copyCode(button) {
+            // Get the code content from the previous sibling's code element
+            const code = button.previousElementSibling.querySelector('code').textContent;
+            
+            // Create a temporary textarea to copy the text
+            const textarea = document.createElement('textarea');
+            textarea.value = code;
+            document.body.appendChild(textarea);
+            textarea.select();
+            
+            try {
+                document.execCommand('copy');
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.classList.remove('copied');
+                }, 2000);
+            } catch (err) {
+                console.error('Failed to copy code: ', err);
+                alert('Failed to copy code. Please copy manually.');
+            } finally {
+                document.body.removeChild(textarea);
+            }
+        }
 
         // Search functionality
         const searchBox = document.getElementById('searchBox');
