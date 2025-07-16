@@ -229,11 +229,11 @@ print("\nProcessed:", processed_text)
             <p><strong>Why?</strong> Scraped data often contains HTML div, br etc tags. These are useless for language understanding.</p>
             <div class="code-container">
                 <pre><code class="language-python">import re
-text = "<div>Welcome to NLP!</div>"
+text = "<div> &lt;p&gt; Welcome to NLP! &lt;p&gt;</div>"
 processed_text = re.sub(r'<.*?>', '', text)
 print("Original:", text)
-print("\nProcessed:", processed_text)
-# Original: <div>Welcome to NLP!</div>
+print("\nProcessed:", processed_text.strip())
+# Original: <div> &lt;p&gt; Welcome to NLP! &lt;/p&gt;</div>
 # Processed: Welcome to NLP!
 </code></pre>
                 <button class="copy-btn" onclick="copyCode(this)"></button>
@@ -287,6 +287,7 @@ print("\nProcessed:", processed_text)
 
             <h3>6. Slang & Chat Abbreviations Handling</h3>
             <p><strong>Why?</strong> "LOL" -> "laughing out loud". Improves understanding.</p>
+            <p>Use a comprehensive slang words CSV by converting it into a Python dictionary and applying it to your text data <a href="https://github.com/Yousfshah/Natural_Language_Processing/tree/main/Extra_Materials" target="_blank" style="text-decoration: none; color: #007bff; font-weight: bold;" onmouseover="this.style.color='#ff4081'; this.style.transform='scale(1.05)'" onmouseout="this.style.color='#007bff'; this.style.transform='scale(1)'"> Slang Words </a></p>
             <div class="code-container">
                 <pre><code class="language-python">import spacy
 nlp = spacy.load("en_core_web_sm")
@@ -356,13 +357,15 @@ print("\nProcessed:", processed_text)
             <p><strong>Why?</strong> Reduces words to their root forms (may not be real words).</p>
             <div class="code-container">
                 <pre><code class="language-python">from nltk.stem import PorterStemmer
-text = "running"
-stemmer = PorterStemmer()
-processed_text = stemmer.stem(text)
+import spacy
+text = "The children were running."
+nlp = spacy.load("en_core_web_sm")
+doc = nlp(text)
+processed_text = [porter.stem(token.text) for token in doc]
 print("Original:", text)
 print("\nProcessed:", processed_text)
-# Original: running
-# Processed: run
+# Original: The children were running.
+# Processed: ['the', 'children', 'were', 'run', '.']
 </code></pre>
                 <button class="copy-btn" onclick="copyCode(this)"></button>
             </div>
